@@ -1,0 +1,12 @@
+This is a toy tls-client-auth example.
+
+
+Example usage:
+-----------
+./gen-certs.sh
+./gradlew -q :server:run
+./gradlew -q :client:run -P"ca-signed"
+./gradlew -q :client:run -P"self-signed"
+
+
+Gradle is cool. You only need java installed. The gradle wrapper (gradlew) will install gradle if it's not already installed.

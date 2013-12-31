@@ -1,0 +1,19 @@
+apply plugin: 'application'
+mainClassName = 'com.laazy.clientauth.client.Main'
+
+dependencies {
+    compile 'commons-io:commons-io:2.4'
+    compile project(':shared')
+}
+
+task(clientcertified, type: JavaExec) {
+    args '../certs/ca.crt', '../certs/client1.pem', '../certs/client1.crt'
+}
+
+run {
+    if (project.hasProperty('ca-signed')) {
+        args '../certs/ca.crt', '../certs/client1.pem', '../certs/client1.crt'
+    } else if (project.hasProperty('self-signed')) {
+        args '../certs/ca.crt', '../certs/client2.pem', '../certs/client2.crt'
+    }
+}

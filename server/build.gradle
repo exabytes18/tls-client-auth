@@ -1,0 +1,10 @@
+apply plugin: 'application'
+mainClassName = 'com.laazy.clientauth.server.Main'
+
+dependencies {
+    compile project(':shared')
+}
+
+run {
+    args '../certs/ca.crt', '../certs/server.pem', '../certs/server.crt'
+}
