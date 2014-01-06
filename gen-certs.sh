@@ -1,3 +1,30 @@
+# These commands apparently generate x509v1 certs, which can be seen with:
+#     openssl x509 -in certs/ca.crt -text
+#
+# x509v1 has no provisions for distinguising CA certs from End-Entity certs.
+# I think this implies that you can sign certs with certs signed by the
+# "acting CA cert". This is potentially problematic as a compromised leaf cert
+# could be used to sign certs we otherwise don't want to trust. The workaround
+# to that is to only trust certs signed by the "acting CA cert" and that don't
+# have any intermediate certs in their chain. Alternatively x509v3 PKIX has a
+# more robust specification for this.
+
+# My guestimate on how v3 extensions works is that the CA issues certs
+# containing the appropriate extensions (e.g. with CA:true when creating
+# intermediate CA certs and CA:false when creating end-entity certs). Since it
+# issues the certs, the CA has control over the privileges granted. Clients are
+# responsible for verifying there are no violations of the extensions?
+# Fundamentally, you could sign a new cert with an end-entity cert which has
+# CA:false, but no client will accept such cert as the chain would be invalid
+# (only leaf certs may have CA:false, all others must have CA:true)?
+
+# Looking at a few websites, it seems that there are some intermediate CA v3
+# certs signed by v1 root certs (though not all roots are v1).
+
+# Note: my terminology is probably wrong as is my understanding of PKI. Don't
+# rely on anything I've said here.
+
+
 mkdir certs
 chmod 700 certs
 
