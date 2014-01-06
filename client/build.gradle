@@ -6,10 +6,6 @@ dependencies {
     compile project(':shared')
 }
 
-task(clientcertified, type: JavaExec) {
-    args '../certs/ca.crt', '../certs/client1.pem', '../certs/client1.crt'
-}
-
 run {
     if (project.hasProperty('ca-signed')) {
         args '../certs/ca.crt', '../certs/client1.pem', '../certs/client1.crt'

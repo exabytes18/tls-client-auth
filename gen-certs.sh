@@ -4,7 +4,7 @@ chmod 700 certs
 # Create a CA cert so we can sign other certs (technically you can sign without a CA cert, but verification doesn't work?)
 openssl genrsa -out certs/ca.pem 2048
 openssl req -new -key certs/ca.pem -out certs/ca.csr -subj "/C=US/ST=CA/L=SM/O=Laazy/CN=mycertauth"
-openssl x509 -req -days 3650 -in certs/ca.csr -signkey certs/ca.pem -out certs/ca.crt -extensions v3_ca
+openssl x509 -req -days 3650 -in certs/ca.csr -signkey certs/ca.pem -out certs/ca.crt
 
 # Create a certificate signed by the ca for the server
 openssl genrsa -out certs/server.pem 2048
